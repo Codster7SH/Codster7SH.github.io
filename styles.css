@@ -309,7 +309,8 @@ form .btn2{
     cursor: pointer;
 }
 .hitcounter{
-    display:center;
+    display: center;
+    text-align: center;
     margin: 50px auto;
     width: fit-content;
     text-decoration: none;
@@ -390,7 +391,7 @@ nav .fa-solid{
         flex-basis: 100%;
     }
     .hitcounter{
-        display:center;
+        display: center;
         font-size: 14px;
         margin: 40px auto;
         width: fit-content;
