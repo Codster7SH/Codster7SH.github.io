@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abstract concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Kalam:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F6F1E3;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .canvas-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  .grain {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.9%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200.55%20%200%200%200%200%200.45%20%200%200%200%200%200.3%20%200%200%200%200.05%200%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%2523n%29%22/%3E%3C/svg%3E");
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 6vw;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .name {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #241E38;
+    mix-blend-mode: multiply;
+  }
+  .links { display: flex; gap: 30px; font-size: 15px; }
+  .links a { color: #241E38; text-decoration: none; mix-blend-mode: multiply; }
+  .links a.connect { font-weight: 700; }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 6vw 4vw;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
+
+  .textblock { max-width: 620px; flex: 1 1 480px; }
+
+  .hero-visual {
+    flex: 0 0 auto;
+    width: 380px;
+    max-width: 100%;
+  }
+  .hero-visual svg { width: 100%; height: auto; display: block; }
+
+  .eyebrow {
+    font-family: 'Kalam', cursive;
+    font-size: 18px;
+    color: #241E38;
+    margin-bottom: 14px;
+    mix-blend-mode: multiply;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.15;
+    margin-bottom: 22px;
+    color: #1A1530;
+    mix-blend-mode: multiply;
+    min-height: 2.4em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 4px;
+    background: #1A1530;
+    margin-left: 3px;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .sub {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #2E2748;
+    max-width: 460px;
+    margin-bottom: 32px;
+    mix-blend-mode: multiply;
+  }
+
+  .ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+
+  button, a.primary, .explore-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 26px;
+    cursor: pointer;
+    border: 2px solid #1A1530;
+    background: rgba(246,241,227,0.75);
+    color: #1A1530;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+    transition: transform 0.15s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  button:hover, a.primary:hover, .explore-btn:hover { transform: translateY(-2px); }
+  a.primary { background: #1A1530; color: #F6F1E3; }
+
+  .explore-wrap { position: relative; display: inline-block; }
+  .explore-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: #FBF8F3;
+    border: 1.5px solid #1A1530;
+    border-radius: 6px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 14px 30px -10px rgba(26,21,48,0.35);
+    z-index: 10;
+  }
+  .explore-menu.show { display: flex; }
+  .explore-menu a {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1A1530;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+  .explore-menu a:hover { background: rgba(26,21,48,0.08); }
+
+  .tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    padding: 5px 14px;
+    border: 1.5px solid #1A1530;
+    border-radius: 30px;
+    color: #1A1530;
+    background: rgba(246,241,227,0.6);
+  }
+  .bio-gif {
+    display: block;
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 14px 30px -12px rgba(26,21,48,0.35);
+  }
+  .bio-section {
+    position: relative;
+    z-index: 2;
+    padding: 4vw 6vw 6vw;
+    max-width: 1600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  .bio-section p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(19px, 2vw, 24px);
+    line-height: 1.65;
+    color: #1A1530;
+    mix-blend-mode: multiply;
+    max-width: 760px;
+  }
+/* Tablet / laptop: scale the hero visual down instead of letting it dominate */
+@media (max-width: 1100px) {
+  .hero-visual { width: 300px; }
+}
+
+@media (max-width: 860px) {
+  main { justify-content: center; }
+  .hero-visual { width: 240px; }
+}
+
+/* Phone: remove the brain animation entirely, per feedback that it was
+   shifting/misbehaving at narrow widths — not worth fighting at this size */
+@media (max-width: 700px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 6vw;
+  }
+  .links {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 13.5px;
+  }
+  main {
+    padding: 0 6vw 8vw;
+    flex-direction: column;
+  }
+  .textblock { max-width: 100%; }
+  .bio-gif { max-width: 100%; }
+  .hero-visual { display: none; }
+}
+</style>
+</head>
+<body>
+
+<svg class="canvas-bg" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#F6F1E3"/>
+  <path d="M 581.9,300.0 Q 581.9,300.0 595.1,429.2 Q 608.4,558.4 479.2,606.2 Q 350.0,654.1 202.0,625.0 Q 54.0,596.0 67.6,448.0 Q 81.3,300.0 121.8,206.2 Q 162.4,112.4 256.2,20.0 Q 350.0,-72.4 475.7,-11.9 Q 601.4,48.6 591.7,174.3 Z" fill="#7F77DD" opacity="0.55" style="mix-blend-mode:multiply"/>
+<path d="M 1335.9,200.0 Q 1335.9,200.0 1331.5,313.6 Q 1327.2,427.2 1213.6,442.0 Q 1100.0,456.9 979.0,449.4 Q 858.1,441.9 881.8,321.0 Q 905.5,200.0 925.7,122.9 Q 945.8,45.8 1022.9,-62.0 Q 1100.0,-169.9 1187.8,-72.7 Q 1275.5,24.5 1305.7,112.2 Z" fill="#5DCAA5" opacity="0.5" style="mix-blend-mode:multiply"/>
+<path d="M 472.6,700.0 Q 472.6,700.0 470.0,808.7 Q 467.4,917.4 358.7,949.0 Q 250.0,980.5 177.4,912.9 Q 104.8,845.2 43.4,772.6 Q -18.0,700.0 15.0,599.0 Q 48.1,498.1 149.0,495.2 Q 250.0,492.3 350.3,495.8 Q 450.6,499.4 461.6,599.7 Z" fill="#D85A30" opacity="0.45" style="mix-blend-mode:multiply"/>
+<path d="M 1470.8,650.0 Q 1470.8,650.0 1454.4,744.0 Q 1437.9,837.9 1344.0,850.2 Q 1250.0,862.5 1165.9,840.4 Q 1081.8,818.2 965.7,734.1 Q 849.6,650.0 950.9,551.1 Q 1052.2,452.2 1151.1,349.6 Q 1250.0,247.0 1351.5,347.0 Q 1453.0,447.0 1461.9,548.5 Z" fill="#E8B979" opacity="0.5" style="mix-blend-mode:multiply"/>
+<path d="M 1166.8,480.0 Q 1166.8,480.0 1137.8,659.4 Q 1108.8,838.8 929.4,881.4 Q 750.0,923.9 662.6,789.3 Q 575.2,654.8 457.4,567.4 Q 339.5,480.0 394.2,329.5 Q 449.0,179.0 599.5,194.0 Q 750.0,209.0 835.3,259.2 Q 920.7,309.3 1043.7,394.7 Z" fill="#0F6E56" opacity="0.4" style="mix-blend-mode:screen"/>
+<path d="M 1219.5,850.0 Q 1219.5,850.0 1163.2,928.4 Q 1106.8,1006.8 1028.4,1018.2 Q 950.0,1029.6 874.4,1015.4 Q 798.9,1001.1 783.0,925.6 Q 767.2,850.0 766.9,758.3 Q 766.6,666.6 858.3,648.3 Q 950.0,629.9 1009.2,680.7 Q 1068.5,731.5 1144.0,790.8 Z" fill="#993556" opacity="0.35" style="mix-blend-mode:multiply"/>
+<path d="M 375.8,150.0 Q 375.8,150.0 305.6,192.7 Q 235.5,235.5 192.7,267.0 Q 150.0,298.4 110.4,263.8 Q 70.8,229.2 3.1,189.6 Q -64.6,150.0 -1.3,106.0 Q 62.0,62.0 106.0,14.2 Q 150.0,-33.7 192.9,15.2 Q 235.8,64.2 305.8,107.1 Z" fill="#F0997B" opacity="0.4" style="mix-blend-mode:screen"/>
+
+</svg>
+
+<div class="grain"></div>
+
+<div class="content">
+  <nav>
+    <a href="index.html" style="text-decoration:none; color:inherit;"><span class="name">Shivam</span></a>
+    <div class="links">
+      <a href="journey.html">Academic Journey</a>
+      <a href="publications.html">Publications</a>
+      <a href="about.html">About</a>
+      <a href="connect.html" class="connect">Connect</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="textblock">
+      <p class="eyebrow">Explainable &amp; Medical AI · ML · Fuzzy Systems · Data Mining · Sensors</p>
+      <h1><span id="typewriter"></span><span class="cursor">&nbsp;</span></h1>
+      <p class="sub">Doctoral researcher at the University of Bergen working across sensor data, wearables, and applied ML — with industry and founder experience along the way.</p>
+      <div class="ctas">
+        <a class="primary" href="connect.html">Let's connect</a>
+        <div class="explore-wrap">
+          <button class="explore-btn" id="exploreBtn">Explore</button>
+          <div class="explore-menu" id="exploreMenu">
+            <a href="journey.html">Academic Journey</a>
+            <a href="publications.html">Publications</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About</a>
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">Sensor fusion</span>
+        <span class="tag">Clinical ML</span>
+        <span class="tag">Founder</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg width="380" height="380" viewBox="0 0 560 560" role="img" aria-label="A brain with icons representing books, publications, research, code, gym, biking, hiking, shopping, calling, and managing tasks orbiting around it">
+        <defs>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <clipPath id="leftHemi">
+            <path d="M 280,215 C 240,215 210,232 200,258 C 178,262 165,280 168,300 C 155,308 150,326 160,340 C 152,352 155,368 168,375 C 165,388 175,400 190,400 C 195,412 210,420 225,417 C 235,330 235,300 280,290 Z"/>
+          </clipPath>
+          <clipPath id="rightHemi">
+            <path d="M 280,215 C 320,215 350,232 360,258 C 382,262 395,280 392,300 C 405,308 410,326 400,340 C 408,352 405,368 392,375 C 395,388 385,400 370,400 C 365,412 350,420 335,417 C 325,330 325,300 280,290 Z"/>
+          </clipPath>
+        </defs>
+
+        <path d="M 280,215 C 240,215 210,232 200,258 C 178,262 165,280 168,300 C 155,308 150,326 160,340 C 152,352 155,368 168,375 C 165,388 175,400 190,400 C 195,412 210,420 225,417 C 235,330 235,300 280,290 Z
+                 M 280,215 C 320,215 350,232 360,258 C 382,262 395,280 392,300 C 405,308 410,326 400,340 C 408,352 405,368 392,375 C 395,388 385,400 370,400 C 365,412 350,420 335,417 C 325,330 325,300 280,290 Z"
+              fill="#1B2438" filter="url(#softGlow)"/>
+
+        <g id="leftCircuit" clip-path="url(#leftHemi)"></g>
+        <g id="rightSpark" clip-path="url(#rightHemi)"></g>
+
+        <path d="M 280,215 C 240,215 210,232 200,258 C 178,262 165,280 168,300 C 155,308 150,326 160,340 C 152,352 155,368 168,375 C 165,388 175,400 190,400 C 195,412 210,420 225,417 C 235,330 235,300 280,290 Z
+                 M 280,215 C 320,215 350,232 360,258 C 382,262 395,280 392,300 C 405,308 410,326 400,340 C 408,352 405,368 392,375 C 395,388 385,400 370,400 C 365,412 350,420 335,417 C 325,330 325,300 280,290 Z"
+              fill="none" stroke="#EFE9D8" stroke-width="2" stroke-linejoin="round" opacity="0.9"/>
+        <line x1="280" y1="215" x2="280" y2="417" stroke="#EFE9D8" stroke-width="1.5" opacity="0.5"/>
+
+        <g id="items"></g>
+      </svg>
+    </div>
+  </main>
+</div>
+
+<section class="bio-section">
+  <img src="assets/homepage-coding.gif" alt="Coding illustration" class="bio-gif">
+  <p>Currently working as a PhD candidate at the Faculty of Medicine, University of Bergen, where my work focuses on bridging the gap between advanced artificial intelligence and practical clinical deployment. Specifically, my work centers on building an explainable medical data translation algorithm that mimics human-like reasoning and is capable of making decisions and providing interventions based on the health inputs provided.</p>
+</section>
+
+<script>
+  (function () {
+    const NS = 'http://www.w3.org/2000/svg';
+    function el(tag, attrs) {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    const items = [
+      { label: 'Books', color: '#7F77DD', draw: iconBook },
+      { label: 'Publications', color: '#0F6E56', draw: iconDoc },
+      { label: 'Research', color: '#4A7BAE', draw: iconSearch },
+      { label: 'Code', color: '#3B5E8C', draw: iconCode },
+      { label: 'Gym', color: '#D85A30', draw: iconDumbbell },
+      { label: 'Biking', color: '#0F6E56', draw: iconBike },
+      { label: 'Hiking', color: '#2E4E77', draw: iconMountain },
+      { label: 'Shopping', color: '#993556', draw: iconBag },
+      { label: 'Calling someone', color: '#F0997B', draw: iconPhone },
+      { label: 'Managing things', color: '#7F77DD', draw: iconCheck }
+    ];
+
+    function iconBook(g, c) {
+      g.appendChild(el('path', { d: `M -12,-9 C -6,-13 -1,-11 0,-8 C 1,-11 6,-13 12,-9 L 12,9 C 6,5 1,7 0,10 C -1,7 -6,5 -12,9 Z`, fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+      g.appendChild(el('line', { x1: 0, y1: -7.5, x2: 0, y2: 9, stroke: c, 'stroke-width': 1.6 }));
+    }
+    function iconDoc(g, c) {
+      g.appendChild(el('rect', { x: -9, y: -12, width: 18, height: 24, rx: 2, fill: 'none', stroke: c, 'stroke-width': 2 }));
+      [-4, 0, 4].forEach(y => g.appendChild(el('line', { x1: -5, y1: y, x2: 5, y2: y, stroke: c, 'stroke-width': 1.4 })));
+    }
+    function iconSearch(g, c) {
+      g.appendChild(el('circle', { cx: -2, cy: -2, r: 8, fill: 'none', stroke: c, 'stroke-width': 2.2 }));
+      g.appendChild(el('line', { x1: 4, y1: 4, x2: 11, y2: 11, stroke: c, 'stroke-width': 2.4, 'stroke-linecap': 'round' }));
+    }
+    function iconCode(g, c) {
+      g.appendChild(el('path', { d: 'M -6,-9 L -13,0 L -6,9', fill: 'none', stroke: c, 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+      g.appendChild(el('path', { d: 'M 6,-9 L 13,0 L 6,9', fill: 'none', stroke: c, 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    }
+    function iconDumbbell(g, c) {
+      g.appendChild(el('line', { x1: -10, y1: 0, x2: 10, y2: 0, stroke: c, 'stroke-width': 2.4 }));
+      [-11, 11].forEach(x => {
+        g.appendChild(el('rect', { x: x - 3, y: -8, width: 6, height: 16, rx: 2, fill: c }));
+      });
+    }
+    function iconBike(g, c) {
+      g.appendChild(el('circle', { cx: -8, cy: 6, r: 6, fill: 'none', stroke: c, 'stroke-width': 1.8 }));
+      g.appendChild(el('circle', { cx: 8, cy: 6, r: 6, fill: 'none', stroke: c, 'stroke-width': 1.8 }));
+      g.appendChild(el('path', { d: 'M -8,6 L 0,-6 L 8,6 M 0,-6 L -3,6 M -3,-2 L 5,-2', fill: 'none', stroke: c, 'stroke-width': 1.6, 'stroke-linejoin': 'round' }));
+    }
+    function iconMountain(g, c) {
+      g.appendChild(el('path', { d: 'M -12,9 L -3,-8 L 2,-1 L 6,-7 L 12,9 Z', fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+      g.appendChild(el('path', { d: 'M -5,-4 L -3,-8 L -1,-4', fill: 'none', stroke: c, 'stroke-width': 1.4 }));
+    }
+    function iconBag(g, c) {
+      g.appendChild(el('path', { d: 'M -8,-4 L -8,10 L 8,10 L 8,-4 Z', fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+      g.appendChild(el('path', { d: 'M -4,-4 C -4,-11 4,-11 4,-4', fill: 'none', stroke: c, 'stroke-width': 1.8 }));
+    }
+    function iconPhone(g, c) {
+      g.appendChild(el('path', { d: 'M -8,-9 C -3,-9 -2,-4 -4,-2 C -2,2 2,6 6,4 C 8,2 13,3 13,8 C 13,11 10,12 7,11 C -3,9 -11,1 -13,-9 C -14,-12 -11,-14 -8,-9 Z', fill: c }));
+    }
+    function iconCheck(g, c) {
+      g.appendChild(el('rect', { x: -9, y: -12, width: 18, height: 24, rx: 2, fill: 'none', stroke: c, 'stroke-width': 2 }));
+      g.appendChild(el('path', { d: 'M -5,-2 L -1,2 L 5,-6', fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+      g.appendChild(el('line', { x1: -5, y1: 6, x2: 5, y2: 6, stroke: c, 'stroke-width': 1.4 }));
+    }
+
+    const leftG = document.getElementById('leftCircuit');
+    const circuitColor = '#7EC8E3';
+    const circuitNodes = [
+      [210,240],[230,235],[250,245],[190,270],[215,275],[240,270],[260,265],
+      [195,305],[220,310],[245,308],[190,335],[210,340],[230,335],
+      [200,365],[225,370],[195,390],[215,395]
+    ];
+    circuitNodes.forEach((p, i) => {
+      if (i > 0) {
+        const prev = circuitNodes[i - 1];
+        leftG.appendChild(el('path', {
+          d: `M ${prev[0]},${prev[1]} L ${prev[0]},${p[1]} L ${p[0]},${p[1]}`,
+          fill: 'none', stroke: circuitColor, 'stroke-width': 1.5, opacity: 0.85
+        }));
+      }
+      leftG.appendChild(el('circle', { cx: p[0], cy: p[1], r: i % 3 === 0 ? 4 : 2.5, fill: circuitColor, opacity: 0.9 }));
+    });
+
+    const rightG = document.getElementById('rightSpark');
+    const sparkColors = ['#F0997B', '#5DCAA5', '#AFA9EC', '#F0C64B', '#ED93B1', '#85B7EB'];
+    const sparkPoints = [
+      [310,240],[335,235],[355,250],[320,265],[345,270],[370,265],
+      [315,300],[340,305],[365,300],[390,295],[320,335],[345,340],[370,335],
+      [325,370],[350,375],[330,395]
+    ];
+    sparkPoints.forEach((p, i) => {
+      const color = sparkColors[i % sparkColors.length];
+      const r = 4 + (i % 3) * 1.5;
+      for (let a = 0; a < 6; a++) {
+        const angle = (Math.PI / 3) * a;
+        rightG.appendChild(el('line', {
+          x1: p[0], y1: p[1],
+          x2: p[0] + Math.cos(angle) * r, y2: p[1] + Math.sin(angle) * r,
+          stroke: color, 'stroke-width': 1.6, 'stroke-linecap': 'round', opacity: 0.9
+        }));
+      }
+      rightG.appendChild(el('circle', { cx: p[0], cy: p[1], r: 2, fill: color }));
+    });
+
+    const itemsG = document.getElementById('items');
+    const cx = 280, cy = 280, radius = 210, badgeR = 30;
+    const nodes = items.map((item, i) => {
+      const angle0 = (Math.PI * 2 / items.length) * i;
+      const group = el('g', {});
+      const badge = el('circle', { r: badgeR, fill: item.color, opacity: 0.92 });
+      group.appendChild(badge);
+      const iconG = el('g', {});
+      item.draw(iconG, '#FBF8F3');
+      group.appendChild(iconG);
+      const title = el('title', {});
+      title.textContent = item.label;
+      group.appendChild(title);
+      itemsG.appendChild(group);
+      return { angle0, group };
+    });
+
+    let t = 0;
+    function frame() {
+      t += 0.0011;
+      nodes.forEach(n => {
+        const a = n.angle0 + t;
+        const x = cx + radius * Math.cos(a);
+        const y = cy + radius * Math.sin(a);
+        n.group.setAttribute('transform', `translate(${x},${y})`);
+      });
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>
+
+<script>
+  const lines = [
+    "Hi, I am Shivam.",
+    "नमस्ते, मैं शिवम हूँ।,आप कैसे हैं? ",
+    "Hei, jeg er Shivam.",
+    "Hola, soy Shivam.",
+    "Bonjour, je suis Shivam.",
+  ];
+  const tw = document.getElementById('typewriter');
+  let lineIdx = 0, charIdx = 0, deleting = false;
+
+  function typeLoop() {
+    const current = lines[lineIdx];
+    if (!deleting) {
+      charIdx++;
+      tw.textContent = current.slice(0, charIdx);
+      if (charIdx === current.length) {
+        deleting = true;
+        setTimeout(typeLoop, 1800);
+        return;
+      }
+      setTimeout(typeLoop, 45);
+    } else {
+      charIdx--;
+      tw.textContent = current.slice(0, charIdx);
+      if (charIdx === 0) {
+        deleting = false;
+        lineIdx = (lineIdx + 1) % lines.length;
+        setTimeout(typeLoop, 400);
+        return;
+      }
+      setTimeout(typeLoop, 25);
+    }
+  }
+  typeLoop();
+
+  const exploreBtn = document.getElementById('exploreBtn');
+  const exploreMenu = document.getElementById('exploreMenu');
+  if (exploreBtn && exploreMenu) {
+    exploreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      exploreMenu.classList.toggle('show');
+    });
+    document.addEventListener('click', (e) => {
+      if (!exploreMenu.contains(e.target) && e.target !== exploreBtn) {
+        exploreMenu.classList.remove('show');
+      }
+    });
+  }
+</script>
+
+
+<!-- ============ SHARED FOOTER ============ -->
+<link rel="stylesheet" href="footer.css">
+
+<div class="walk-zone">
+  <div class="footer-interactive-container" id="footerCharacter">
+    <div class="footer-speech-bubble" id="footerSpeechBubble">Bye! See you soon 👋</div>
+    <img src="assets/e69b8a8511e8.webp" alt="Shivam and Broonie walking">
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html" data-nav>Home</a>
+      <a href="journey.html" data-nav>Academic Journey</a>
+      <a href="publications.html" data-nav>Publications, Articles &amp; Learning</a>
+      <a href="blog.html" data-nav>Blog</a>
+    </div>
+    <div>
+      <h4>More</h4>
+      <a href="about.html" data-nav>About Me</a>
+      <a href="connect.html" data-nav>Connect</a>
+      <a href="https://www.youtube.com/watch?v=uSo2dagQ8EE" target="_blank" rel="noopener">My Playlist ↗</a>
+    </div>
+    <div>
+      <h4>Reach me</h4>
+      <a href="mailto:Shivamonline045@gmail.com">Shivamonline045@gmail.com</a>
+      <a href="https://no.linkedin.com/in/shivam-pandey679" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <p>👀 Visitor count: <strong id="visitorCount">…</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-content">
+    <p>&copy; 2026 Shivam. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="footer.js"></script>
+
+</body>
+</html>

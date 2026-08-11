@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=Caveat:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F4F2EC;
+    color: #2A2A28;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 32px 6vw; border-bottom: 1px solid #DEDACE;
+    max-width: 1600px; margin: 0 auto; box-sizing: border-box;
+  }
+  .name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; }
+  .links { display: flex; gap: 30px; font-size: 15px; }
+  .links a { color: #55534A; text-decoration: none; }
+  .links a.current { color: #2A2A28; font-weight: 600; border-bottom: 2px solid #2A2A28; padding-bottom: 2px; }
+  .links a.connect { font-weight: 700; color: #2A2A28; }
+
+  main {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 6vw;
+  }
+  .stamp {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    color: #8A8779;
+    border: 2px dashed #B8B39F;
+    border-radius: 50%;
+    width: 130px; height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    transform: rotate(-8deg);
+    margin-bottom: 30px;
+  }
+  h1 { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 18px; }
+  p { font-size: 16px; line-height: 1.7; color: #55534A; max-width: 500px; }
+
+@media (max-width: 700px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 6vw;
+  }
+  .links {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 13.5px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" style="text-decoration:none; color:inherit;"><span class="name">Shivam</span></a>
+  <div class="links">
+    <a href="journey.html">Academic Journey</a>
+    <a href="publications.html">Publications</a>
+    <a href="blog.html" class="current">Blog</a>
+    <a href="about.html">About</a>
+    <a href="connect.html" class="connect">Connect</a>
+  </div>
+</nav>
+
+<main>
+  <div class="stamp">coming<br>soon</div>
+  <h1>Coming soon</h1>
+  <p>This section intends to share a collection of assorted learnings and tips I've acquired through my journey.</p>
+</main>
+
+
+<!-- ============ SHARED FOOTER ============ -->
+<link rel="stylesheet" href="footer.css">
+
+<div class="walk-zone">
+  <div class="footer-interactive-container" id="footerCharacter">
+    <div class="footer-speech-bubble" id="footerSpeechBubble">Bye! See you soon 👋</div>
+    <img src="assets/e69b8a8511e8.webp" alt="Shivam and Broonie walking">
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html" data-nav>Home</a>
+      <a href="journey.html" data-nav>Academic Journey</a>
+      <a href="publications.html" data-nav>Publications, Articles &amp; Learning</a>
+      <a href="blog.html" data-nav>Blog</a>
+    </div>
+    <div>
+      <h4>More</h4>
+      <a href="about.html" data-nav>About Me</a>
+      <a href="connect.html" data-nav>Connect</a>
+      <a href="https://www.youtube.com/watch?v=uSo2dagQ8EE" target="_blank" rel="noopener">My Playlist ↗</a>
+    </div>
+    <div>
+      <h4>Reach me</h4>
+      <a href="mailto:Shivamonline045@gmail.com">Shivamonline045@gmail.com</a>
+      <a href="https://no.linkedin.com/in/shivam-pandey679" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <p>👀 Visitor count: <strong id="visitorCount">…</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-content">
+    <p>&copy; 2026 Shivam &amp; Broonie. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="footer.js"></script>
+
+</body>
+</html>

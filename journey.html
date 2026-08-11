@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Kalam:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #EFE9D8;
+    background: linear-gradient(180deg, #16223B 0%, #1E3A5F 45%, #16223B 100%);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22250%22%20height%3D%22250%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22turbulence%22%20baseFrequency%3D%220.012%22%20numOctaves%3D%223%22%20seed%3D%223%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200.15%20%200%200%200%200%200.28%20%200%200%200%200%200.45%20%200%200%200%200.35%200%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%2523n%29%22/%3E%3C/svg%3E");
+    background-blend-mode: overlay;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .swirls { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .vignette {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10,16,30,0.55) 100%);
+  }
+
+  nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 6vw;
+    border-bottom: 1px solid rgba(244,232,184,0.15);
+    max-width: 1600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  .name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: #F4E8B8; }
+  .links { display: flex; gap: 30px; font-size: 15px; }
+  .links a { color: #C9D6E8; text-decoration: none; }
+  .links a.current { color: #F4E8B8; font-weight: 600; border-bottom: 2px solid #F4E8B8; padding-bottom: 2px; }
+  .links a.connect { font-family: 'Kalam', cursive; font-weight: 700; color: #F4E8B8; }
+
+  main { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; padding: 5vw 6vw 8vw; }
+
+  .page-title {
+    font-family: 'Caveat', cursive;
+    font-size: 44px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #F4E8B8;
+  }
+
+  .intro {
+    max-width: 680px;
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px dashed rgba(244,232,184,0.3);
+  }
+
+  .intro p {
+    font-size: 18px;
+    line-height: 1.85;
+    color: #F4E8B8;
+  }
+  .intro p + p { margin-top: 14px; }
+
+  .cv-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 18px;
+    margin-top: 16px;
+    display: inline-block;
+    border: 1.5px solid rgba(244,232,184,0.4);
+    color: #F4E8B8;
+    text-decoration: none;
+    border-radius: 2px;
+    background: rgba(255,253,246,0.5);
+  }
+
+  .section-label {
+    font-family: 'Kalam', cursive;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: #F4E8B8;
+  }
+
+  .timeline { position: relative; padding-left: 32px; margin-bottom: 4rem; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px; top: 4px; bottom: 4px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, #C9BF9F 0, #C9BF9F 4px, transparent 4px, transparent 8px);
+  }
+
+  .entry { position: relative; margin-bottom: 34px; }
+  .entry::before {
+    content: "";
+    position: absolute;
+    left: -32px; top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(244,232,184,0.5);
+    background: rgba(244,232,184,0.1);
+  }
+  .entry .date {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: #C9BF9F;
+    margin-bottom: 4px;
+  }
+  .entry h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    margin-bottom: 4px;
+  }
+  .entry p {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #D9CFA8;
+    max-width: 560px;
+  }
+
+  .underline {
+    display: inline-block;
+    position: relative;
+  }
+  .underline svg { position: absolute; bottom: -6px; left: 0; width: 100%; height: 8px; }
+
+  .skills-block {
+    border-left: 2px dashed rgba(244,232,184,0.35);
+    padding-left: 24px;
+  }
+  .skill-line {
+    font-size: 15.5px;
+    line-height: 1.9;
+    color: #D9CFA8;
+  }
+  .skill-line strong {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: #F4E8B8;
+  }
+
+@media (max-width: 700px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 6vw;
+  }
+  .links {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 13.5px;
+  }
+}
+</style>
+</head>
+<body>
+
+<svg class="swirls" viewBox="0 0 1500 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 340.0,140.0 L 345.9,169.5 L 339.2,199.2 L 319.4,222.2 L 291.5,234.1 L 262.7,235.8 L 237.7,232.7 L 216.2,230.1 L 194.9,229.9 L 171.3,228.5 L 147.2,220.9 L 127.8,204.1 L 118.6,180.1 L 121.1,154.6 L 131.7,132.6 L 144.8,115.6 L 156.0,101.2 L 165.3,86.4 L 175.8,70.4 L 190.9,56.3 L 210.4,49.1 L 231.1,51.8 L 248.4,63.6 L 259.8,80.1 L 266.4,96.4 L 271.5,110.3 L 277.6,122.6 L 284.0,136.0 L 287.7,151.4 L 285.1,167.4 L 275.5,180.3 L 260.9,187.4 L 245.5,188.7 L 232.0,186.6 L 220.9,184.2 L 210.9,183.0 L 200.3,181.8 L 189.6,178.4 L 180.8,171.0 L 176.5,160.5 L 177.4,149.0 L 182.4,139.2 L 188.7,132.0 L 194.4,126.6 L 198.8,121.7 L 203.2,116.9 L 208.6,112.8 L 215.1,111.0 L 221.7,112.5 L 227.0,116.9 L 230.0,122.7 L 231.1,128.1 L 231.4,132.5 L 231.4,135.8 L 231.2,138.6 L 230.4,141.1 L 228.5,143.0 L 225.8,143.7 L 223.1,143.2 L 221.0,141.7 " fill="none" stroke="#3B5E8C" stroke-width="6" opacity="0.5" stroke-linecap="round"/>
+<path d="M 1420.0,170.0 L 1426.8,204.4 L 1419.1,239.0 L 1395.9,265.9 L 1363.4,279.8 L 1329.8,281.8 L 1300.6,278.1 L 1275.6,275.2 L 1250.7,274.9 L 1223.2,273.3 L 1195.1,264.3 L 1172.5,244.7 L 1161.7,216.8 L 1164.6,187.0 L 1177.0,161.4 L 1192.3,141.5 L 1205.3,124.8 L 1216.2,107.5 L 1228.5,88.8 L 1246.0,72.4 L 1268.9,63.9 L 1293.0,67.1 L 1313.1,80.9 L 1326.4,100.1 L 1334.2,119.1 L 1340.1,135.3 L 1347.2,149.7 L 1354.7,165.3 L 1358.9,183.4 L 1356.0,201.9 L 1344.7,217.0 L 1327.8,225.3 L 1309.7,226.8 L 1294.0,224.3 L 1281.1,221.6 L 1269.3,220.1 L 1257.0,218.8 L 1244.5,214.7 L 1234.3,206.2 L 1229.2,193.9 L 1230.3,180.6 L 1236.1,169.1 L 1243.5,160.6 L 1250.1,154.4 L 1255.3,148.7 L 1260.4,143.0 L 1266.6,138.2 L 1274.3,136.2 L 1282.0,137.9 L 1288.1,143.1 L 1291.7,149.8 L 1293.0,156.2 L 1293.3,161.2 L 1293.3,165.1 L 1293.1,168.3 L 1292.1,171.3 L 1289.9,173.5 L 1286.8,174.3 L 1283.6,173.7 L 1281.2,172.0 " fill="none" stroke="#4A7BAE" stroke-width="6" opacity="0.4" stroke-linecap="round"/>
+<path d="M 270.0,760.0 L 276.4,792.0 L 269.1,824.1 L 247.7,849.1 L 217.4,862.0 L 186.2,863.8 L 159.1,860.4 L 135.9,857.7 L 112.8,857.4 L 87.3,855.9 L 61.1,847.6 L 40.2,829.4 L 30.2,803.5 L 32.8,775.8 L 44.4,752.0 L 58.5,733.5 L 70.7,718.0 L 80.7,701.9 L 92.2,684.6 L 108.4,669.4 L 129.6,661.5 L 152.1,664.5 L 170.8,677.3 L 183.1,695.1 L 190.3,712.8 L 195.8,727.8 L 202.4,741.2 L 209.4,755.6 L 213.3,772.4 L 210.6,789.7 L 200.1,803.7 L 184.4,811.4 L 167.6,812.8 L 153.0,810.5 L 141.0,807.9 L 130.1,806.6 L 118.7,805.3 L 107.1,801.5 L 97.6,793.6 L 92.8,782.2 L 93.9,769.8 L 99.2,759.1 L 106.1,751.3 L 112.2,745.5 L 117.1,740.2 L 121.8,734.9 L 127.6,730.5 L 134.7,728.6 L 141.9,730.2 L 147.5,735.0 L 150.8,741.2 L 152.1,747.1 L 152.3,751.8 L 152.3,755.4 L 152.2,758.5 L 151.3,761.2 L 149.2,763.2 L 146.3,764.0 L 143.3,763.4 L 141.1,761.9 " fill="none" stroke="#2E4E77" stroke-width="6" opacity="0.45" stroke-linecap="round"/>
+<path d="M 1440.0,720.0 L 1445.4,747.1 L 1439.3,774.2 L 1421.1,795.4 L 1395.5,806.3 L 1369.1,807.8 L 1346.2,804.9 L 1326.5,802.6 L 1307.0,802.4 L 1285.4,801.2 L 1263.3,794.1 L 1245.5,778.7 L 1237.1,756.8 L 1239.3,733.4 L 1249.1,713.2 L 1261.1,697.6 L 1271.3,684.5 L 1279.8,670.9 L 1289.5,656.2 L 1303.3,643.3 L 1321.2,636.7 L 1340.2,639.2 L 1356.0,650.0 L 1366.5,665.1 L 1372.6,680.0 L 1377.2,692.7 L 1382.8,704.1 L 1388.7,716.3 L 1392.0,730.5 L 1389.7,745.1 L 1380.8,756.9 L 1367.5,763.5 L 1353.3,764.6 L 1341.0,762.7 L 1330.8,760.5 L 1321.6,759.4 L 1312.0,758.3 L 1302.1,755.2 L 1294.1,748.5 L 1290.1,738.8 L 1291.0,728.3 L 1295.5,719.3 L 1301.3,712.6 L 1306.5,707.7 L 1310.6,703.3 L 1314.6,698.8 L 1319.5,695.0 L 1325.5,693.4 L 1331.6,694.8 L 1336.4,698.8 L 1339.2,704.1 L 1340.2,709.1 L 1340.4,713.1 L 1340.4,716.1 L 1340.3,718.7 L 1339.5,721.0 L 1337.8,722.7 L 1335.3,723.4 L 1332.8,722.9 L 1331.0,721.6 " fill="none" stroke="#F0C64B" stroke-width="6" opacity="0.35" stroke-linecap="round"/>
+<path d="M 815.0,100.0 L 819.6,123.4 L 814.4,146.8 L 798.7,165.1 L 776.6,174.5 L 753.8,175.9 L 734.0,173.3 L 717.0,171.4 L 700.1,171.2 L 681.5,170.1 L 662.4,164.0 L 647.0,150.7 L 639.7,131.8 L 641.7,111.6 L 650.1,94.1 L 660.5,80.7 L 669.3,69.3 L 676.7,57.6 L 685.0,44.9 L 696.9,33.8 L 712.4,28.0 L 728.8,30.2 L 742.5,39.5 L 751.5,52.6 L 756.7,65.5 L 760.8,76.4 L 765.6,86.2 L 770.7,96.8 L 773.6,109.1 L 771.6,121.7 L 763.9,131.9 L 752.4,137.6 L 740.2,138.5 L 729.5,136.9 L 720.7,135.0 L 712.8,134.0 L 704.4,133.1 L 695.9,130.4 L 689.0,124.6 L 685.5,116.2 L 686.3,107.2 L 690.2,99.4 L 695.2,93.6 L 699.7,89.4 L 703.3,85.5 L 706.7,81.7 L 710.9,78.4 L 716.1,77.0 L 721.4,78.2 L 725.5,81.7 L 727.9,86.3 L 728.8,90.6 L 729.0,94.0 L 729.0,96.6 L 728.9,98.9 L 728.2,100.9 L 726.7,102.3 L 724.6,102.9 L 722.4,102.5 L 720.8,101.4 " fill="none" stroke="#F0C64B" stroke-width="6" opacity="0.3" stroke-linecap="round"/>
+<path d="M 895.0,810.0 L 901.1,840.8 L 894.2,871.6 L 873.5,895.6 L 844.4,908.1 L 814.4,909.8 L 788.4,906.5 L 766.1,903.9 L 743.9,903.6 L 719.3,902.2 L 694.2,894.2 L 674.0,876.7 L 664.4,851.8 L 666.9,825.2 L 678.1,802.3 L 691.7,784.5 L 703.3,769.6 L 713.0,754.2 L 724.0,737.5 L 739.7,722.9 L 760.0,715.3 L 781.6,718.1 L 799.6,730.4 L 811.5,747.6 L 818.4,764.6 L 823.7,779.0 L 830.0,791.9 L 836.7,805.8 L 840.5,821.9 L 837.8,838.5 L 827.8,852.0 L 812.7,859.4 L 796.5,860.7 L 782.5,858.5 L 771.0,856.0 L 760.5,854.8 L 749.5,853.6 L 738.3,850.0 L 729.2,842.3 L 724.7,831.3 L 725.7,819.4 L 730.8,809.2 L 737.4,801.6 L 743.3,796.0 L 748.0,791.0 L 752.5,785.9 L 758.1,781.6 L 764.9,779.8 L 771.8,781.4 L 777.3,786.0 L 780.4,792.0 L 781.6,797.6 L 781.8,802.1 L 781.9,805.6 L 781.7,808.5 L 780.8,811.1 L 778.9,813.1 L 776.1,813.8 L 773.2,813.3 L 771.1,811.8 " fill="none" stroke="#3B5E8C" stroke-width="6" opacity="0.4" stroke-linecap="round"/>
+<path d="M 590.0,470.0 L 594.4,492.1 L 589.4,514.4 L 574.5,531.7 L 553.6,540.6 L 532.0,541.9 L 513.3,539.5 L 497.2,537.6 L 481.2,537.4 L 463.5,536.4 L 445.4,530.6 L 430.9,518.0 L 424.0,500.1 L 425.8,481.0 L 433.8,464.4 L 443.6,451.7 L 452.0,440.9 L 459.0,429.8 L 466.9,417.8 L 478.1,407.3 L 492.8,401.8 L 508.4,403.9 L 521.3,412.7 L 529.8,425.1 L 534.8,437.3 L 538.6,447.7 L 543.2,457.0 L 548.0,467.0 L 550.7,478.6 L 548.8,490.5 L 541.6,500.2 L 530.7,505.6 L 519.1,506.5 L 509.0,504.9 L 500.7,503.2 L 493.1,502.2 L 485.2,501.4 L 477.2,498.8 L 470.6,493.3 L 467.4,485.4 L 468.1,476.8 L 471.8,469.4 L 476.5,464.0 L 480.8,459.9 L 484.1,456.3 L 487.4,452.6 L 491.4,449.6 L 496.3,448.2 L 501.3,449.4 L 505.2,452.7 L 507.5,457.0 L 508.4,461.1 L 508.5,464.3 L 508.5,466.8 L 508.4,468.9 L 507.8,470.8 L 506.4,472.2 L 504.4,472.8 L 502.3,472.4 L 500.8,471.3 " fill="none" stroke="#4A7BAE" stroke-width="6" opacity="0.25" stroke-linecap="round"/>
+
+</svg>
+<div class="vignette"></div>
+
+<nav>
+  <a href="index.html" style="text-decoration:none; color:inherit;"><span class="name">Shivam</span></a>
+  <div class="links">
+    <a href="journey.html" class="current">Academic Journey</a>
+    <a href="publications.html">Publications</a>
+    <a href="about.html">About</a>
+    <a href="connect.html" class="connect">Connect</a>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title">Academic journey &amp; work experience</h1>
+
+  <div class="intro">
+    <p>I'm a doctoral researcher at the University of Bergen, working at the intersection of AI, medical AI, and machine learning — with a particular focus on sensor data from wearables and how to make it interpretable for clinicians.</p>
+    <p>Before this, I spent time in industry as a data engineer, co-founded a bootstrapped startup, and ran an NGO. I've included the full path below, along with a downloadable CV.</p>
+    <a href="assets/shivam-pandey-resume.pdf" class="cv-btn" download>Download CV (PDF)</a>
+  </div>
+
+  <p class="section-label">Education</p>
+  <div class="timeline">
+    <div class="entry">
+      <p class="date">2016</p>
+      <h3>High School &amp; Intermediate</h3>
+      <p>Kendriya Vidyalaya, Lucknow.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2019</p>
+      <h3>BSc, Computer Science (Honours)</h3>
+      <p>Integral University.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2021</p>
+      <h3>Advanced Diploma in Computer Applications</h3>
+    </div>
+    <div class="entry">
+      <p class="date">2023</p>
+      <h3>MSc</h3>
+      <p>South Asian University.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2025 — present</p>
+      <h3>PhD, AI &amp; Medical AI</h3>
+      <p>University of Bergen, Norway — researching sensor data optimization and interpretability for smart wearables, with a focus on clinical usability.</p>
+    </div>
+  </div>
+
+  <p class="section-label">Work &amp; Entrepreneurial experience</p>
+  <div class="timeline">
+    <div class="entry">
+      <p class="date">2019 — 2020</p>
+      <h3>Founder</h3>
+      <p>Started my own bicycle D2C startup.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2019 — 2020</p>
+      <h3>Service Engineer &amp; Programmer Analyst</h3>
+      <p>Cognizant Technology Solutions.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2023 — 2024</p>
+      <h3>Technical Officer</h3>
+      <p>LearningGuru LLP Pvt. Ltd.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2023 — 2024</p>
+      <h3>Data Engineer</h3>
+      <p>Amazon.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2023 (6 months)</p>
+      <h3>Ad-hoc Lecturer</h3>
+      <p>Industrial Training Institute — taught a course on basic computer skills.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2024 — 2025</p>
+      <h3>Chief Technology Officer</h3>
+      <p>Vallabhi Group and Blue Hill Technology.</p>
+    </div>
+  </div>
+
+  <p class="section-label">Social outreach &amp; public representation</p>
+  <div class="timeline">
+    <div class="entry">
+      <p class="date">2019</p>
+      <h3>Community outreach volunteer</h3>
+      <p>During my time at Cognizant, I was involved in outreach activities, leading sessions for remote communities — children and blue-collar workers — teaching basic English and mathematics.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2020</p>
+      <h3>Founder, COVID fact-check &amp; support portal</h3>
+      <p>During COVID, I started a fact-checking social media portal and page to combat misinformation, which grew into a service-based platform offering free doctor consultations, psychiatry sessions, and social and mental health support. The platform played a key role during the COVID-19 pandemic, the initial Ukraine crisis, and Dengue outbreaks. For this work, I was recognized among the World's 25 Most Influential COVID Warriors by UNICEF. The portal has since been converted into an NGO and continues to function today.</p>
+    </div>
+    <div class="entry">
+      <p class="date">2022</p>
+      <h3>President, Hostel Committee for South Asian University</h3>
+      <p>I served as President of the Student Body and Hostel Committee at South Asian University, responsible for organizing various social and cultural events across the university and acting as a bridge between the university and its students. I served in that role for a year.</p>
+    </div>
+    <div class="entry">
+      <p class="date">December 2025 — present</p>
+      <h3>President, UiBDoc Board</h3>
+      <p>Representing the research community at the University of Bergen. Read more at <a href="https://www.uibdoc.no/about" style="color:#F4E8B8;">uibdoc.no</a>.</p>
+    </div>
+  </div>
+
+  <p class="section-label">Skills</p>
+  <div class="skills-block">
+    <p class="skill-line"><strong>Data mining &amp; engineering</strong></p>
+    <p class="skill-line"><strong>Database languages:</strong> hands-on experience with NoSQL, PL-SQL, and SQL</p>
+    <p class="skill-line"><strong>Languages:</strong> Python, R, MATLAB, C, C++ — intermediate front-end skills</p>
+    <p class="skill-line"><strong>AI/ML:</strong> vibe coding, machine learning, generative AI, and NLP</p>
+  </div>
+</main>
+
+
+<!-- ============ SHARED FOOTER ============ -->
+<link rel="stylesheet" href="footer.css">
+
+<div class="walk-zone">
+  <div class="footer-interactive-container" id="footerCharacter">
+    <div class="footer-speech-bubble" id="footerSpeechBubble">Bye! See you soon 👋</div>
+    <img src="assets/e69b8a8511e8.webp" alt="Shivam and Broonie walking">
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html" data-nav>Home</a>
+      <a href="journey.html" data-nav>Academic Journey</a>
+      <a href="publications.html" data-nav>Publications, Articles &amp; Learning</a>
+      <a href="blog.html" data-nav>Blog</a>
+    </div>
+    <div>
+      <h4>More</h4>
+      <a href="about.html" data-nav>About Me</a>
+      <a href="connect.html" data-nav>Connect</a>
+      <a href="https://www.youtube.com/watch?v=uSo2dagQ8EE" target="_blank" rel="noopener">My Playlist ↗</a>
+    </div>
+    <div>
+      <h4>Reach me</h4>
+      <a href="mailto:Shivamonline045@gmail.com">Shivamonline045@gmail.com</a>
+      <a href="https://no.linkedin.com/in/shivam-pandey679" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <p>👀 Visitor count: <strong id="visitorCount">…</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-content">
+    <p>&copy; 2026 Shivam &amp; Broonie. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="footer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications, Articles &amp; Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Kalam:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #2A2A28;
+    background: #F4F2EC;
+  }
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 32px 6vw; border-bottom: 1px solid #DEDACE;
+    max-width: 1600px; margin: 0 auto; box-sizing: border-box;
+  }
+  .name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; }
+  .links { display: flex; gap: 30px; font-size: 15px; }
+  .links a { color: #55534A; text-decoration: none; }
+  .links a.current { color: #2A2A28; font-weight: 600; border-bottom: 2px solid #2A2A28; padding-bottom: 2px; }
+  .links a.connect { font-weight: 700; color: #2A2A28; }
+
+  main { max-width: 980px; margin: 0 auto; padding: 5vw 6vw 6vw; }
+  .page-title { font-family: 'Caveat', cursive; font-size: 44px; margin-bottom: 6px; }
+  .page-sub { color: #6B6960; font-size: 15px; margin-bottom: 3.5rem; max-width: 620px; }
+
+  .section-label {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px;
+    margin-bottom: 4px; padding-bottom: 10px; border-bottom: 2px solid #2A2A28;
+  }
+  .sub-label {
+    font-family: 'Kalam', cursive; font-weight: 700; font-size: 16px;
+    color: #6B6960; margin: 28px 0 16px;
+  }
+  .section { margin-bottom: 4.5rem; }
+  .section > .section-label { margin-bottom: 26px; }
+
+  .card {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 22px;
+    padding: 20px 0;
+    border-bottom: 1px solid #E6E2D6;
+  }
+  .thumb-link { display: block; }
+  .thumb {
+    width: 130px; height: 130px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    border: 1px solid #DEDACE;
+  }
+  .card h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .card h3 a { color: #2A2A28; text-decoration: none; }
+  .card h3 a:hover { text-decoration: underline; }
+  .meta { font-size: 13px; color: #8A8779; margin-bottom: 8px; }
+  .desc { font-size: 14.5px; line-height: 1.65; color: #4A483F; max-width: 640px; }
+
+  .more-note {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    color: #8A8779;
+    margin-top: 10px;
+  }
+
+  .tag-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .tag { font-size: 11.5px; padding: 3px 10px; background: #E6E2D6; border-radius: 20px; color: #55534A; }
+
+@media (max-width: 700px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 6vw;
+  }
+  .links {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 13.5px;
+  }
+  .card {
+    grid-template-columns: 1fr;
+  }
+  .thumb {
+    width: 100%;
+    height: 180px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" style="text-decoration:none; color:inherit;"><span class="name">Shivam</span></a>
+  <div class="links">
+    <a href="journey.html">Academic Journey</a>
+    <a href="publications.html" class="current">Publications</a>
+    <a href="about.html">About</a>
+    <a href="connect.html" class="connect">Connect</a>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title">Publications &amp; articles</h1>
+  <p class="page-sub">Research and writing — each links out to where it actually lives.</p>
+
+  <!-- PUBLICATIONS -->
+  <div class="section">
+    <div class="section-label">Publications</div>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.researchgate.net/publication/382142687_Industry50_An_idea_of_smart_human_centric_industrial_revolution" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/ca43f145a0fb.jpg" alt="Industry 5.0 publication preview">
+      </a>
+      <div>
+        <h3><a href="https://www.researchgate.net/publication/382142687_Industry50_An_idea_of_smart_human_centric_industrial_revolution" target="_blank" rel="noopener">Industry 5.0: An Idea of Smart, Human-Centric Industrial Revolution ↗</a></h3>
+        <p class="meta">ResearchGate · Zenodo · July 2024</p>
+        <p class="desc">A look at Industry 5.0 as it builds on Industry 4.0 — human-centric, sustainable industrial evolution, IoT, and collaborative robots ("cobots") working alongside a human workforce.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLES -->
+  <div class="section">
+    <div class="section-label">Articles</div>
+
+    <p class="sub-label">Blog articles</p>
+
+    <div class="card">
+      <a class="thumb-link" href="https://medium.com/@shivampandey7/cross-training-72bb7d92d5fb" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/15ce3d20cdd7.jpg" alt="Cross-training article preview">
+      </a>
+      <div>
+        <h3><a href="https://medium.com/@shivampandey7/cross-training-72bb7d92d5fb" target="_blank" rel="noopener">Cross-Training in Workforce Scheduling Under Industry 4.0 ↗</a></h3>
+        <p class="meta">Medium · Jan 2023</p>
+        <p class="desc">Why cross-training a workforce is a strategic advantage under Industry 4.0, not just a stopgap for covering absences.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <a class="thumb-link" href="https://medium.com/@shivampandey7/natural-language-processing-and-sentiment-analysis-aaa324d1f411" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/576422b9fff7.jpg" alt="NLP article preview">
+      </a>
+      <div>
+        <h3><a href="https://medium.com/@shivampandey7/natural-language-processing-and-sentiment-analysis-aaa324d1f411" target="_blank" rel="noopener">Natural Language Processing and Sentiment Analysis ↗</a></h3>
+        <p class="meta">Medium · Jul 2023</p>
+        <p class="desc">An introduction to NLP — how machines are taught to interpret, understand, and generate human language.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <a class="thumb-link" href="https://medium.com/@shivampandey7/industry5-0-a-idea-of-smart-human-centric-industrial-revolution-a894150ca382" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/abf7a70c12d3.jpg" alt="Industry 5.0 Medium article preview">
+      </a>
+      <div>
+        <h3><a href="https://medium.com/@shivampandey7/industry5-0-a-idea-of-smart-human-centric-industrial-revolution-a894150ca382" target="_blank" rel="noopener">Industry 5.0: An Idea of Smart, Human-Centric and Sustainable Industrial Revolution ↗</a></h3>
+        <p class="meta">Medium · Jul 2024</p>
+        <p class="desc">A companion piece to the published paper, walking through the ideas behind a smart, human-centric, and sustainable industrial revolution.</p>
+      </div>
+    </div>
+
+    <p class="sub-label">Opinion pieces</p>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.sciencenorway.no/health-opinion-researchers-zone/is-technology-replacing-human-care/2645399" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/b729c8babba1.jpg" alt="Science Norway opinion piece preview">
+      </a>
+      <div>
+        <h3><a href="https://www.sciencenorway.no/health-opinion-researchers-zone/is-technology-replacing-human-care/2645399" target="_blank" rel="noopener">Is Technology Replacing Human Care? ↗</a></h3>
+        <p class="meta">Science Norway · Opinion</p>
+        <p class="desc">Healthcare involves more than diagnosis and treatment — empathy, ethical judgment, and interpersonal interaction are elements technology cannot fully replicate.</p>
+      </div>
+    </div>
+
+    <p class="more-note">More articles will be added soon.</p>
+  </div>
+
+  <!-- ENGAGE WITH ME -->
+  <div class="section">
+    <div class="section-label">Engage with me</div>
+
+    <p class="sub-label">Connected projects</p>
+
+    <div class="card">
+      <div class="thumb" style="display:flex; align-items:center; justify-content:center; background:#E6E2D6; font-family:'Kalam', cursive; color:#8A8779; font-size:13px; text-align:center;">Marginal</div>
+      <div>
+        <h3>Marginal — academic writing assistant</h3>
+        <p class="meta">Personal project · React + Vite</p>
+        <p class="desc">A Grammarly-style writing assistant for academic tone, combining LanguageTool's grammar checking with Claude for tone suggestions, styled as a scholarly manuscript with a margin-notes panel.</p>
+        <div class="tag-row"><span class="tag">React</span><span class="tag">Claude API</span><span class="tag">LanguageTool API</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNING (still inside Engage with me) -->
+  <div class="section">
+    <p class="sub-label">Learning — Playlists</p>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.youtube.com/watch?v=7iic3Zj427M&list=PLqFaTIg4myu8AFXUjrVhDkUGp0A9kK8CX" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/0131bff632b3.jpg" alt="Vibe Coding Course with Google preview">
+      </a>
+      <div>
+        <h3><a href="https://www.youtube.com/watch?v=7iic3Zj427M&list=PLqFaTIg4myu8AFXUjrVhDkUGp0A9kK8CX" target="_blank" rel="noopener">5-Day AI Agents: Vibe Coding Course with Google ↗</a></h3>
+        <p class="meta">YouTube · Kaggle × Google · Playlist</p>
+        <p class="desc">An intensive, hands-on course on building AI agents through "vibe coding" with Google.</p>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.youtube.com/watch?v=vStJoetOxJg&list=PLkDaE6sCZn6FNC6YRfRQc_FbeQrF8BwGI" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/1b5e6980e5d6.jpg" alt="Machine Learning Specialization preview">
+      </a>
+      <div>
+        <h3><a href="https://www.youtube.com/watch?v=vStJoetOxJg&list=PLkDaE6sCZn6FNC6YRfRQc_FbeQrF8BwGI" target="_blank" rel="noopener">Machine Learning Specialization by Andrew Ng ↗</a></h3>
+        <p class="meta">YouTube · DeepLearning.AI · Playlist</p>
+        <p class="desc">A foundational course covering supervised and unsupervised learning, from regression and classification to clustering.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.youtube.com/playlist?list=PLoROMvodv4rNRRGdS0rBbXOUGA0wjdh1X" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/5a052da85f9f.jpg" alt="Stanford CS230 Deep Learning preview">
+      </a>
+      <div>
+        <h3><a href="https://www.youtube.com/playlist?list=PLoROMvodv4rNRRGdS0rBbXOUGA0wjdh1X" target="_blank" rel="noopener">Stanford CS230: Deep Learning ↗</a></h3>
+        <p class="meta">YouTube · Stanford Online · Autumn 2025</p>
+        <p class="desc">Foundations of deep learning, from full-cycle DL projects to adversarial robustness, reinforcement learning, and agents.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.youtube.com/playlist?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/0c6999e71a88.jpg" alt="Convolutional Neural Networks preview">
+      </a>
+      <div>
+        <h3><a href="https://www.youtube.com/playlist?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF" target="_blank" rel="noopener">Convolutional Neural Networks ↗</a></h3>
+        <p class="meta">YouTube · DeepLearning.AI · Course 4 of the Deep Learning Specialization</p>
+        <p class="desc">Covers computer vision fundamentals — edge detection, padding, strided convolutions, and building CNNs from scratch.</p>
+      </div>
+    </div>
+
+    <p class="sub-label">Learning — Courses</p>
+
+    <div class="card">
+      <a class="thumb-link" href="https://www.netacad.com/ai-data-science" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/5593ba477261.jpg" alt="Cisco AI and Data Science course preview">
+      </a>
+      <div>
+        <h3><a href="https://www.netacad.com/ai-data-science" target="_blank" rel="noopener">AI &amp; Data Science ↗</a></h3>
+        <p class="meta">Cisco Networking Academy · Self-Paced, Instructor-Led</p>
+        <p class="desc">A learning path covering AI fundamentals, applied AI, and data science essentials with Python.</p>
+      </div>
+    </div>
+    <p class="more-note">More playlists and courses will be added soon.</p>
+  </div>
+</main>
+
+
+<!-- ============ SHARED FOOTER ============ -->
+<link rel="stylesheet" href="footer.css">
+
+<div class="walk-zone">
+  <div class="footer-interactive-container" id="footerCharacter">
+    <div class="footer-speech-bubble" id="footerSpeechBubble">Bye! See you soon 👋</div>
+    <img src="assets/e69b8a8511e8.webp" alt="Shivam and Broonie walking">
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html" data-nav>Home</a>
+      <a href="journey.html" data-nav>Academic Journey</a>
+      <a href="publications.html" data-nav>Publications, Articles &amp; Learning</a>
+      <a href="blog.html" data-nav>Blog</a>
+    </div>
+    <div>
+      <h4>More</h4>
+      <a href="about.html" data-nav>About Me</a>
+      <a href="connect.html" data-nav>Connect</a>
+      <a href="https://www.youtube.com/watch?v=uSo2dagQ8EE" target="_blank" rel="noopener">My Playlist ↗</a>
+    </div>
+    <div>
+      <h4>Reach me</h4>
+      <a href="mailto:Shivamonline045@gmail.com">Shivamonline045@gmail.com</a>
+      <a href="https://no.linkedin.com/in/shivam-pandey679" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <p>👀 Visitor count: <strong id="visitorCount">…</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-content">
+    <p>&copy; 2026 Shivam &amp; Broonie. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="footer.js"></script>
+
+</body>
+</html>
